@@ -6,7 +6,7 @@ namespace Graph_Algorithms_Csharp
     public class Algorithms
     {
         //depth first search
-        public HashSet<T> Dfs<T>(Graph<T> graph, T start,Action<T> previsit = null)
+        public HashSet<T> Dfs<T>(Graph<T> graph, T start, Action<T> previsit = null)
         {
             var visited = new HashSet<T>();
             if (!graph.AdjacencyList.ContainsKey(start))
@@ -18,8 +18,7 @@ namespace Graph_Algorithms_Csharp
                 var vertex = stack.Pop();
                 if (visited.Contains(vertex))
                     continue;
-                if (previsit != null)
-                    previsit(vertex);
+                previsit?.Invoke(vertex);
                 visited.Add(vertex);
                 foreach (var neighbor in graph.AdjacencyList[vertex])
                 {
@@ -34,7 +33,7 @@ namespace Graph_Algorithms_Csharp
         }
 
         //breadth first search
-        public HashSet<T> Bfs<T>(Graph<T> graph, T start)
+        public HashSet<T> Bfs<T>(Graph<T> graph, T start, Action<T> previsit = null)
         {
             var visited = new HashSet<T>();
             if (graph.AdjacencyList.ContainsKey(start))
@@ -48,6 +47,8 @@ namespace Graph_Algorithms_Csharp
                 var vertex = queue.Dequeue();
                 if (visited.Contains(vertex))
                     continue;
+                previsit?.Invoke(vertex);
+
                 visited.Add(vertex);
                 foreach (var neighbor in graph.AdjacencyList[vertex])
                 {
