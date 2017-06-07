@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Graph_Algorithms_Csharp
 {
     public class Algorithms
     {
-        public HashSet<T> Dfs<T>(Graph<T> graph, T start)
+        //depth first search
+        public HashSet<T> Dfs<T>(Graph<T> graph, T start,Action<T> previsit = null)
         {
             var visited = new HashSet<T>();
             if (!graph.AdjacencyList.ContainsKey(start))
@@ -16,6 +18,8 @@ namespace Graph_Algorithms_Csharp
                 var vertex = stack.Pop();
                 if (visited.Contains(vertex))
                     continue;
+                if (previsit != null)
+                    previsit(vertex);
                 visited.Add(vertex);
                 foreach (var neighbor in graph.AdjacencyList[vertex])
                 {
@@ -28,6 +32,8 @@ namespace Graph_Algorithms_Csharp
             return visited;
 
         }
+
+        //breadth first search
         public HashSet<T> Bfs<T>(Graph<T> graph, T start)
         {
             var visited = new HashSet<T>();
