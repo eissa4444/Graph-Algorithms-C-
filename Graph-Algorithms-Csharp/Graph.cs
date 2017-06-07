@@ -35,4 +35,5 @@ namespace Graph_Algorithms_Csharp
             AdjacencyList[vertex] = new HashSet<T>();
         }
     }
+
 }
